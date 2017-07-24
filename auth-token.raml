@@ -15,7 +15,9 @@ types:
       user_id: string
       token_id: string
       token_key: string
-      valid_until: datetime
+      valid_until: # unix date-time in millis
+        type: number
+        format: int64
 
 /tokens:
   description: |
@@ -31,12 +33,12 @@ types:
           application/json:
             SessionToken
 
-  /{token_id}:
-    description: Concrete token
-    uriParameters:
-      token_id: string
-    delete:
-      description: Delete token by it's ID. |
-        Use when signing out of app/site.
-      responses:
-        204:
+/tokens/{token_id}:
+  description: Concrete token
+  uriParameters:
+    token_id: string
+  delete:
+    description: Delete token by it's ID. |
+      Use when signing out of app/site.
+    responses:
+      204:
