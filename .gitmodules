@@ -1,0 +1,3 @@
+[submodule "auth-service-api"]
+	path = auth-service-api
+	url = git@github.com:hypertino/auth-service-api.git

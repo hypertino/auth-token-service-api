@@ -1,0 +1,42 @@
+#%RAML 1.0 Extension
+title: Token Authorization API
+baseUri: hb://auth-token
+extends: auth-service-api/auth.raml
+
+types:
+  CreateSessionToken:
+    type: object
+    properties:
+      time_to_live_seconds?: integer
+
+  SessionToken:
+    type: object
+    properties:
+      user_id: string
+      token_id: string
+      token_key: string
+      valid_until: datetime
+
+/tokens:
+  description: |
+    Session tokens to authenticate and authorize requests.
+  post:
+    description: |
+      Create bearer token to use for the rest authorized requests.
+    body:
+      application/json: CreateSessionToken
+    responses:
+      201:
+        body:
+          application/json:
+            SessionToken
+
+  /{token_id}:
+    description: Concrete token
+    uriParameters:
+      token_id: string
+    delete:
+      description: Delete token by it's ID. |
+        Use when signing out of app/site.
+      responses:
+        204:
